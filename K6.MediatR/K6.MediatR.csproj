@@ -4,9 +4,10 @@
         <TargetFramework>net9.0</TargetFramework>
         <IsPackable>true</IsPackable>
         <Authors>Richard Bláha &lt;richardblaha@gmail.com&gt;</Authors>
-        <Description>K6 bus using MediatR</Description>
+        <Description>MediatR integration</Description>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
 
     <ItemGroup>

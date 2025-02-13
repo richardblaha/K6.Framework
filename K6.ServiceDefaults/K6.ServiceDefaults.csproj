@@ -5,9 +5,10 @@
         <IsAspireSharedProject>true</IsAspireSharedProject>
         <IsPackable>true</IsPackable>
         <Authors>Richard Bláha &lt;richardblaha@gmail.com&gt;</Authors>
-        <Description>K6 service defaults</Description>
+        <Description>Service defaults</Description>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
 
     <ItemGroup>
