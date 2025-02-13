@@ -1,4 +1,4 @@
-name: Build & Release
+name: .NET Build & Release
 
 permissions:
   contents: read
