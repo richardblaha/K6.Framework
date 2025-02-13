@@ -1,0 +1,15 @@
+﻿<div class="@GetClass()">
+    @ChildContent
+</div>
+
+@code
+{
+
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private string GetClass()
+    {
+        return "sidebar";
+    }   
+
+}

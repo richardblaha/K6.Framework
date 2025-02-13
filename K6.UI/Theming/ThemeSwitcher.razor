@@ -1,0 +1,95 @@
+﻿@using K6.UI.Content
+@using K6.UI.Enums
+@using K6.UI.Layout
+@using K6.UI.Navigation
+
+@using Microsoft.Extensions.Localization
+
+@inject IThemeProvider ThemeProvider
+@inject IStringLocalizer<ThemeSwitcher> Localizer
+
+<Stack Type="StackType.Horizontal">
+    @if (ThemeEnabled)
+    {
+        <Dropdown Align="ThemeAlign">
+            <DropdownToggle>
+                <Icon Type="IconType.PaletteFill"/>
+            </DropdownToggle>
+            <DropdownMenu>
+                @foreach (var theme in Themes.All.Values)
+                {
+                    <DropdownItem Item="@theme" OnClick="HandleOnThemeChangedAsync">
+                        @theme.Name
+                    </DropdownItem>
+                }
+            </DropdownMenu>
+        </Dropdown>
+    }
+    @if (ModeEnabled)
+    {
+        <Dropdown Align="ModeAlign">
+            <DropdownToggle>
+                <Icon Type="@GetIconType(Mode)"/>
+            </DropdownToggle>
+            <DropdownMenu>
+                @foreach (var themeMode in Enum.GetValues<ThemeMode>())
+                {
+                    <DropdownItem Item="themeMode" OnClick="HandleOnModeChangedAsync">
+                        <Icon Type="@GetIconType(themeMode)"/>
+                        @Localizer[$"ThemeMode.{themeMode}"]
+                    </DropdownItem>
+                }
+            </DropdownMenu>
+        </Dropdown>
+    }
+</Stack>
+
+@code
+{
+
+    [Parameter] public Theme? Theme { get; set; }
+    [Parameter] public EventCallback<Theme> ThemeChanged { get; set; }
+    [Parameter] public bool ThemeEnabled { get; set; } = true;
+    [Parameter] public Align? ThemeAlign { get; set; }
+
+    [Parameter] public ThemeMode Mode { get; set; }
+    [Parameter] public EventCallback<ThemeMode> ModeChanged { get; set; }
+    [Parameter] public bool ModeEnabled { get; set; } = true;
+    [Parameter] public Align? ModeAlign { get; set; }
+
+    private IconType? GetIconType(ThemeMode mode)
+    {
+        return mode switch
+        {
+            ThemeMode.Auto => IconType.CircleHalf,
+            ThemeMode.Light => IconType.SunFill,
+            ThemeMode.Dark => IconType.MoonFill,
+            _ => null
+        };
+    }
+
+    private async Task HandleOnThemeChangedAsync(object? theme)
+    {
+        if (theme is null)
+            return;
+
+        ThemeProvider.CurrentTheme = (Theme)theme;
+        StateHasChanged();
+
+        if (ThemeChanged.HasDelegate)
+            await ThemeChanged.InvokeAsync(ThemeProvider.CurrentTheme);
+    }
+
+    private async Task HandleOnModeChangedAsync(object? mode)
+    {
+        if (mode is null)
+            return;
+
+        ThemeProvider.CurrentMode = (ThemeMode)mode;
+        StateHasChanged();
+
+        if (ThemeChanged.HasDelegate)
+            await ModeChanged.InvokeAsync(ThemeProvider.CurrentMode);
+    }
+
+}

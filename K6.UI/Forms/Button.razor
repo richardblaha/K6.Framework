@@ -1,0 +1,63 @@
+﻿@using K6.UI.Enums
+@using K6.UI.Extensions
+@using K6.UI.Helpers
+
+<button type="button" class="@GetClass()" @onclick="HandleOnClick" @attributes="Attributes">
+    @ChildContent
+</button>
+
+@code {
+
+    [Parameter] public Color? Color { get; set; }
+
+    [Parameter] public Scale? Size { get; set; }
+
+    [Parameter] public ButtonVariant Variant { get; set; } = ButtonVariant.Solid;
+
+    [Parameter] public bool Active { get; set; }
+
+    [Parameter] public bool Disabled { get; set; }
+
+    [Parameter] public string? Class { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? Attributes { get; set; }
+
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    [Parameter] public EventCallback OnClick { get; set; }
+
+    public void Toggle()
+    {
+        Active = !Active;
+    }
+
+    private string GetAttributes()
+    {
+        var attributes = new List<string>();
+        foreach (var attribute in Attributes ?? new Dictionary<string, object>())
+            attributes.Add($"{attribute.Key}=\"{attribute.Value}\"");
+        return string.Join(" ", attributes);
+    }
+
+    private string GetClass()
+    {
+        return ClassHelper.Combine(
+            "btn",
+            Color?.ToButtonClass(Variant),
+            Size?.ToButtonClass(),
+            Active ? "active" : null,
+            Disabled ? "disabled" : null,
+            Class
+        );
+    }
+
+    private async Task HandleOnClick(MouseEventArgs arg)
+    {
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync(arg);
+        }
+    }
+
+}

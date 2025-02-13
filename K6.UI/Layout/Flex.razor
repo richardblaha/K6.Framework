@@ -1,0 +1,58 @@
+﻿@using K6.UI.Enums
+@using K6.UI.Extensions
+@using K6.UI.Helpers
+@inherits ContainerBase
+
+<div class="@GetClass()">
+    @ChildContent
+</div>
+
+@code {
+
+    [Parameter] public IList<(Screen?, Direction)>? Direction { get; set; }
+
+    private string GetClass()
+    {
+        return ClassHelper.Combine(
+            GetDisplayClass(),
+            GetDirectionClass(),
+            Align?.ToClass(),
+            Justify?.ToClass(),
+            GetMarginClass(),
+            GetPaddingClass(),
+            GetFillClass(),
+            GetGrowClass(),
+            GetShrinkClass(),
+            Class
+        );
+    }
+
+    private string? GetDisplayClass()
+    {
+        if (Display is null)
+            return null;
+
+        var classes = new List<string>();
+        foreach (var (screen, display) in Display)
+        {
+            classes.Add($"d{screen.ToClass()}{display.ToClass()}");
+        }
+
+        return ClassHelper.Combine(classes.ToArray());
+    }
+
+    private string? GetDirectionClass()
+    {
+        if (Direction is null)
+            return null;
+
+        var classes = new List<string>();
+        foreach (var (screen, direction) in Direction)
+        {
+            classes.Add($"flex{screen.ToClass()}{direction.ToClass()}");
+        }
+
+        return ClassHelper.Combine(classes.ToArray());
+    }
+
+}

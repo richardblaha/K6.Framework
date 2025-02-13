@@ -1,0 +1,36 @@
+﻿@using K6.UI.Helpers
+<li class="nav-item">
+    <a class="@GetClass()" href="@Url" @onclick="HandleOnClick">
+        @ChildContent
+    </a>
+</li>
+
+@code
+{
+
+    [Parameter] public string Url { get; set; } = "#";
+
+    [Parameter] public bool Active { get; set; }
+
+    [Parameter] public bool Disabled { get; set; }
+
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    [Parameter] public EventCallback OnClick { get; set; }
+
+
+    private string GetClass()
+    {
+        return ClassHelper.Combine(
+            "navbar-link",
+            Active ? "active" : null,
+            Disabled ? "disabled" : null
+        );
+    }
+
+    private async Task HandleOnClick(MouseEventArgs arg)
+    {
+        await OnClick.InvokeAsync();
+    }
+
+}

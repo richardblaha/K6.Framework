@@ -1,0 +1,87 @@
+﻿@using K6.UI.Enums
+@using K6.UI.Extensions
+@using K6.UI.Helpers
+
+<div class="@GetClass()">
+    <CascadingValue Value="this">
+        @ChildContent
+    </CascadingValue>
+</div>
+
+@code {
+
+    /// <summary>
+    /// Aligns the dropdown to the left or right of the button.
+    /// </summary>
+    [Parameter]
+    public Align? Align { get; set; }
+
+    /// <summary>
+    /// Dropdown type - Dropdown, Dropup, Dropstart, Dropend.
+    /// </summary>
+    [Parameter]
+    public DropdownType Type { get; set; } = DropdownType.Dropdown;
+
+    /// <summary>
+    /// The content of the dropdown.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Whether the dropdown is disabled.
+    /// </summary>
+    [Parameter]
+    public bool IsDisabled { get; set; }
+
+    /// <summary>
+    /// Whether the dropdown is open.
+    /// </summary>
+    [Parameter]
+    public bool IsOpen { get; set; }
+
+    /// <summary>
+    /// Callback when the dropdown item is selected.
+    /// </summary>
+    [Parameter]
+    public EventCallback<object> OnSelect { get; set; }
+
+    /// <summary>
+    /// Toggle the dropdown.
+    /// </summary>
+    public void Toggle()
+    {
+        if (IsOpen)
+        {
+            Close();
+        }
+        else
+        {
+            Open();
+        }
+    }
+
+    /// <summary>
+    /// Open the dropdown.
+    /// </summary>
+    public void Open()
+    {
+        IsOpen = true;
+        StateHasChanged();
+    }
+
+    /// <summary>
+    /// Close the dropdown.
+    /// </summary>
+    public void Close()
+    {
+        IsOpen = false;
+        StateHasChanged();
+    }
+
+    private string GetClass()
+    {
+        return ClassHelper.Combine(Type.ToClass(Align));
+    }
+
+}

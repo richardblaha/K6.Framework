@@ -1,0 +1,29 @@
+﻿@using K6.UI.Enums
+@using K6.UI.Extensions
+@using K6.UI.Helpers
+@using K6.UI.Layout
+
+<nav class="@GetClass()">
+    <Container Breakpoint="@Breakpoint">
+        @ChildContent
+    </Container>
+</nav>
+
+@code {
+
+    [Parameter] public NavbarType Type { get; set; } = NavbarType.Static;
+    [Parameter] public Breakpoint Breakpoint { get; set; } = Breakpoint.XS;
+    [Parameter] public Color? Color { get; set; }
+
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private string GetClass()
+    {
+        return ClassHelper.Combine(
+            "navbar",
+            Color?.ToNavbarClass(),
+            Type.ToClass()
+        );
+    }
+
+}

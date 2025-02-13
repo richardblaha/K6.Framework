@@ -1,0 +1,11 @@
+﻿<a href="@Url" class="card-link">
+    @ChildContent
+</a>
+
+@code {
+
+    [Parameter] public string? Url { get; set; }
+
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+}

@@ -1,0 +1,33 @@
+﻿<li>
+    <a class="dropdown-item" href="@Url" @onclick="HandleOnClick">
+        @ChildContent
+    </a>
+</li>
+
+@code
+{
+    [CascadingParameter] public required Dropdown Dropdown { get; set; }
+
+    [Parameter] public object? Item { get; set; }
+
+    [Parameter] public string? Url { get; set; }
+
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    [Parameter] public EventCallback<object?> OnClick { get; set; }
+
+    private async Task HandleOnClick(MouseEventArgs arg)
+    {
+        Dropdown.Close();
+
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync(Item);
+        }
+
+        if (Dropdown.OnSelect.HasDelegate)
+        {
+            await Dropdown.OnSelect.InvokeAsync(Item);
+        }
+    }
+}

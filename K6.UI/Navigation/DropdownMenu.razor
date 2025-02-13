@@ -1,0 +1,33 @@
+﻿@using K6.UI.Helpers
+
+@if (Dropdown.IsOpen)
+{
+    <ul class="@GetClass()">
+        @ChildContent
+    </ul>
+}
+
+@code
+{
+
+    /// <summary>
+    /// Dropdown component.
+    /// </summary>
+    [CascadingParameter]
+    public required Dropdown Dropdown { get; set; }
+
+    /// <summary>
+    /// Child content.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string GetClass()
+    {
+        return ClassHelper.Combine(
+            "dropdown-menu",
+            Dropdown.IsOpen ? "show" : null
+        );
+    }
+
+}

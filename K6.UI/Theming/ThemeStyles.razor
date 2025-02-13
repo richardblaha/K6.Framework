@@ -1,0 +1,6 @@
+﻿@inject IThemeProvider ThemeProvider
+
+@foreach (var style in ThemeProvider.CurrentTheme.Styles)
+{
+    <link rel="stylesheet" href="@style"/>
+}

@@ -1,0 +1,9 @@
+﻿<span class="navbar-text">
+    @ChildContent
+</span>
+
+@code {
+    
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    
+}

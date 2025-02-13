@@ -1,0 +1,6 @@
+﻿@inject IThemeProvider ThemeProvider
+
+@foreach (var script in ThemeProvider.CurrentTheme.Scripts)
+{
+    <script src="@script"></script>
+}

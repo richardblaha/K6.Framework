@@ -1,0 +1,28 @@
+﻿@using Blazored.FluentValidation
+@using K6.UI.Enums
+
+@using Microsoft.AspNetCore.Components.Forms
+
+<EditForm FormName="@FormName" Model="@Model" OnSubmit="@OnSubmit" OnValidSubmit="@OnValidSubmit" OnInvalidSubmit="@OnInvalidSubmit">
+    <FluentValidationValidator/>
+    @ChildContent
+</EditForm>
+
+@code {
+
+    [Parameter] public string? FormName { get; set; }
+    [Parameter] public object? Model { get; set; }
+
+    [Parameter] public string? Action { get; set; }
+    [Parameter] public string? Target { get; set; }
+
+    [Parameter] public Autocomplete? Autocomplete { get; set; }
+    [Parameter] public bool Validate { get; set; } = true;
+
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    [Parameter] public EventCallback<EditContext> OnSubmit { get; set; }
+    [Parameter] public EventCallback<EditContext> OnValidSubmit { get; set; }
+    [Parameter] public EventCallback<EditContext> OnInvalidSubmit { get; set; }
+
+}

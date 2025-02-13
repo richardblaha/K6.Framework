@@ -1,0 +1,47 @@
+﻿@using K6.UI.Enums
+@using K6.UI.Extensions
+@using K6.UI.Helpers
+@inherits ContainerBase
+
+<div class="@GetClass()">
+    @ChildContent
+</div>
+
+@code {
+
+    [Parameter] public IList<(Screen?, byte)>? Gutter { get; set; }
+
+    private string GetClass()
+    {
+        return ClassHelper.Combine(
+            "row",
+            Align?.ToClass(),
+            Justify?.ToClass(),
+            GetMarginClass(),
+            GetPaddingClass(),
+            GetBackgroundClass(),
+            GetBorderClass(),
+            GetGutterClass()
+        );
+    }
+
+    private string? GetGutterClass()
+    {
+        if (Gutter is null)
+        {
+            return null;
+        }
+
+        var classes = new List<string>();
+        foreach (var (screen, gutter) in Gutter)
+        {
+            classes.Add($"g{screen.ToClass()}-{gutter}");
+        }
+
+        return string.Join(
+            " ",
+            classes
+        );
+    }
+
+}

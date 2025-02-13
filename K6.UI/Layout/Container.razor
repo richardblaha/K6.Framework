@@ -1,0 +1,33 @@
+﻿@using K6.UI.Enums
+@using K6.UI.Extensions
+@using K6.UI.Helpers
+
+@inherits ContainerBase
+
+<div class="@GetClass()">
+    @ChildContent
+</div>
+
+@code {
+
+    [Parameter] public Breakpoint Breakpoint { get; set; } = Breakpoint.XS;
+
+    private string GetClass()
+    {
+        return ClassHelper.Combine(
+            Breakpoint.ToContainerClass(),
+            Align?.ToClass(),
+            Justify?.ToClass(),
+            GetMarginClass(),
+            GetPaddingClass(),
+            Color?.ToTextClass(),
+            GetBackgroundClass(),
+            GetBorderClass(),
+            GetFillClass(),
+            GetGrowClass(),
+            GetShrinkClass(),
+            Class
+        );
+    }
+
+}

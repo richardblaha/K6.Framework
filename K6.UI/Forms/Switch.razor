@@ -1,0 +1,23 @@
+﻿@using K6.UI.Enums
+@using K6.UI.Extensions
+@inherits Input<bool>
+
+<div class="form-check form-switch">
+    <input id="@Id" name="@Name" type="checkbox" role="switch" placeholder="@Placeholder" readonly="@ReadOnly" disabled="@Disabled" class="@GetClass()"/>
+    <label for="@Id" class="form-check-label">
+        @Label
+    </label>
+    <div></div>
+</div>
+
+@code
+{
+    private string GetClass()
+    {
+        return string.Join(
+            " ",
+            "form-check-input",
+            Size?.ToInputClass()
+        );
+    }
+}

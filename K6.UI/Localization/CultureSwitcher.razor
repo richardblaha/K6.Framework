@@ -1,0 +1,86 @@
+﻿@using System.Globalization
+
+@using K6.UI.Enums
+@using K6.UI.Helpers
+@using K6.UI.Navigation
+
+<Dropdown Align="Align">
+    <DropdownToggle>
+        @CultureInfo.CurrentUICulture.TwoLetterISOLanguageName
+    </DropdownToggle>
+    <DropdownMenu>
+        @foreach (var cultureInfo in AvailableCultures)
+        {
+            <DropdownItem Item="cultureInfo" OnClick="OnCultureChangedAsync">
+                @cultureInfo.TwoLetterISOLanguageName
+                @cultureInfo.NativeName.ToLower()
+            </DropdownItem>
+        }
+    </DropdownMenu>
+</Dropdown>
+
+@code
+{
+    [Parameter]
+    public IList<CultureInfo> AvailableCultures { get; set; } =
+    [
+        // All EU languages
+        new CultureInfo("at"),
+        new CultureInfo("bg"),
+        new CultureInfo("cs"),
+        new CultureInfo("da"),
+        new CultureInfo("de"),
+        new CultureInfo("el"),
+        new CultureInfo("en"),
+        new CultureInfo("es"),
+        new CultureInfo("et"),
+        new CultureInfo("fi"),
+        new CultureInfo("fr"),
+        new CultureInfo("ga"),
+        new CultureInfo("hr"),
+        new CultureInfo("hu"),
+        new CultureInfo("it"),
+        new CultureInfo("lt"),
+        new CultureInfo("lv"),
+        new CultureInfo("mt"),
+        new CultureInfo("nl"),
+        new CultureInfo("pl"),
+        new CultureInfo("pt"),
+        new CultureInfo("ro"),
+        new CultureInfo("sk"),
+        new CultureInfo("sl"),
+        new CultureInfo("sv"),
+
+        // Non-EU languages
+        new CultureInfo("vi"),
+        new CultureInfo("tr"),
+        new CultureInfo("uk"),
+    ];
+
+    [Parameter] public EventCallback<CultureInfo> CultureChanged { get; set; }
+
+    [Parameter] public Align Align { get; set; }
+
+    private string GetClass()
+    {
+        return GetClass(CultureInfo.DefaultThreadCurrentUICulture?.TwoLetterISOLanguageName);
+    }
+
+    private string GetClass(string? culture)
+    {
+        return ClassHelper.Combine(
+            "fi",
+            $"fi-{culture}"
+        );
+    }
+
+    private async Task OnCultureChangedAsync(object? cultureInfo)
+    {
+        CultureInfo.DefaultThreadCurrentUICulture = cultureInfo as CultureInfo;
+
+        if (CultureChanged.HasDelegate)
+        {
+            await CultureChanged.InvokeAsync(cultureInfo as CultureInfo);
+        }
+    }
+}

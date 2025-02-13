@@ -1,0 +1,7 @@
+﻿mode: ContinuousDeployment
+branches:
+  main:
+    label: ''
+    increment: Patch
+ignore:
+  sha: [ ]

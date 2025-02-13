@@ -1,0 +1,89 @@
+﻿@using K6.UI.Enums
+@using K6.UI.Extensions
+@using K6.UI.Helpers
+@inherits ContainerBase
+
+<div class="@GetClass()">
+    @ChildContent
+</div>
+
+@code{
+
+    [Parameter] public IList<(Screen?, byte)>? Size { get; set; }
+    [Parameter] public IList<(Screen?, byte)>? Offset { get; set; }
+    [Parameter] public IList<(Screen?, byte)>? Order { get; set; }
+    [Parameter] public IList<(Screen?, byte)>? Gutter { get; set; }
+
+    private string GetClass()
+    {
+        return ClassHelper.Combine(
+            GetSizeClass(),
+            GetOffsetClass(),
+            GetOrderClass(),
+            Align?.ToClass(),
+            Justify?.ToClass(),
+            GetMarginClass(),
+            GetPaddingClass(),
+            GetBackgroundClass(),
+            GetBorderClass(),
+            GetGutterClass()
+        );
+    }
+
+    private string GetSizeClass()
+    {
+        if (Size is null)
+            return "col";
+
+        var classes = new List<string>();
+        foreach (var (screen, size) in Size)
+        {
+            classes.Add($"col{screen.ToClass()}-{size}");
+        }
+
+        return ClassHelper.Combine(classes.ToArray());
+    }
+
+    private string? GetOffsetClass()
+    {
+        if (Offset is null)
+            return null;
+
+        var classes = new List<string>();
+        foreach (var (screen, offset) in Offset)
+        {
+            classes.Add($"offset{screen.ToClass()}-{offset}");
+        }
+
+        return ClassHelper.Combine(classes.ToArray());
+    }
+
+    private string? GetOrderClass()
+    {
+        if (Order is null)
+            return null;
+
+        var classes = new List<string>();
+        foreach (var (screen, order) in Order)
+        {
+            classes.Add($"order{screen.ToClass()}-{order}");
+        }
+
+        return ClassHelper.Combine(classes.ToArray());
+    }
+
+    private string? GetGutterClass()
+    {
+        if (Gutter is null)
+            return null;
+
+        var classes = new List<string>();
+        foreach (var (screen, gutter) in Gutter)
+        {
+            classes.Add($"g{screen.ToClass()}-{gutter}");
+        }
+
+        return ClassHelper.Combine(classes.ToArray());
+    }
+
+}

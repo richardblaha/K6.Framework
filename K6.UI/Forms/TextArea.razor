@@ -1,0 +1,24 @@
+﻿@using K6.UI.Enums
+@using K6.UI.Extensions
+@using K6.UI.Helpers
+@inherits Input<string>
+
+<div>
+    <label for="@Id" class="form-label">@Label</label>
+    <textarea id="@Id" name="@Name" placeholder="@Placeholder" readonly="@ReadOnly" disabled="@Disabled" class="@GetClass()">
+    </textarea>
+    <div></div>
+</div>
+
+@code {
+    private string GetClass()
+    {
+        return ClassHelper.Combine(
+            ReadOnly
+                ? "form-control-plaintext"
+                : "form-control",
+            Size?.ToInputClass()
+        );
+    }
+
+}

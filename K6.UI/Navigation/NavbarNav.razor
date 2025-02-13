@@ -1,0 +1,21 @@
+﻿@using K6.UI.Helpers
+
+<ul class="@GetClass()">
+    @ChildContent
+</ul>
+
+@code {
+
+    [Parameter] public bool Scroll { get; set; }
+
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private string GetClass()
+    {
+        return ClassHelper.Combine(
+            "navbar-nav",
+            Scroll ? "navbar-nav-scroll" : null
+        );
+    }
+
+}

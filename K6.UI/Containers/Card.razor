@@ -1,0 +1,21 @@
+﻿@using K6.UI.Enums
+@using K6.UI.Extensions
+@using K6.UI.Helpers
+<div class="@GetClass()">
+    @ChildContent
+</div>
+
+@code {
+
+    [Parameter] public Color? Color { get; set; }
+
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private string GetClass()
+    {
+        return ClassHelper.Combine(
+            "card",
+            Color?.ToTextBgClass());
+    }
+
+}

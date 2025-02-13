@@ -1,0 +1,28 @@
+﻿@using K6.UI.Enums
+@using K6.UI.Extensions
+@using K6.UI.Helpers
+<i class="@GetClass()" @attributes="Attributes"></i>
+
+@code
+{
+    [Parameter] public IconType? Type { get; set; }
+
+    [Parameter] public Color? Color { get; set; }
+
+    [Parameter] public IconSize? Size { get; set; }
+
+    [Parameter] public string? Class { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IDictionary<string, object>? Attributes { get; set; }
+
+    private string GetClass()
+    {
+        return ClassHelper.Combine(
+            Type?.ToClass(),
+            Color?.ToTextClass(),
+            Size?.ToClass(),
+            Class
+        );
+    }
+}

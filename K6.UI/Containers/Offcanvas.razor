@@ -1,0 +1,26 @@
+﻿@using K6.UI.Enums
+@using K6.UI.Extensions
+@using K6.UI.Helpers
+
+@inherits K6.UI.Layout.ContainerBase
+
+<div class="@GetClass()">
+    @ChildContent
+</div>
+
+@code
+{
+
+    [Parameter] public Breakpoint Breakpoint { get; set; } = Breakpoint.Fluid;
+    [Parameter] public Placement Placement { get; set; } = Placement.Start;
+    [Parameter] public bool? Show { get; set; }
+
+    private string GetClass()
+    {
+        return ClassHelper.Combine(
+            Breakpoint.ToOffcanvasClass(),
+            Placement.ToOffcanvasClass()
+        );
+    }
+
+}

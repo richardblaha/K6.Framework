@@ -1,0 +1,15 @@
+﻿@using K6.UI.Helpers
+<img src="@Source" alt="@Label" class="@GetClass()"/>
+
+@code {
+
+    [Parameter] public string? Source { get; set; }
+    [Parameter] public string? Label { get; set; }
+    [Parameter] public string? Class { get; set; }
+
+    private string GetClass()
+    {
+        return ClassHelper.Combine(Class);
+    }
+
+}

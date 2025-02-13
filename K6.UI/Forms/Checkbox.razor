@@ -1,0 +1,23 @@
+﻿@using K6.UI.Enums
+@using K6.UI.Extensions
+@using K6.UI.Helpers
+@inherits Input<bool>
+
+<div class="form-check">
+    <input id="@Id" name="@Name" type="checkbox" placeholder="@Placeholder" readonly="@ReadOnly" disabled="@Disabled" class="@GetClass()"/>
+    <label for="@Id" class="form-check-label">
+        @Label
+    </label>
+    <div></div>
+</div>
+
+@code
+{
+    private string GetClass()
+    {
+        return ClassHelper.Combine(
+            "form-check-input",
+            Size?.ToInputClass()
+        );
+    }
+}

@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <IsPackable>true</IsPackable>
+        <Authors>Richard Bláha &lt;richardblaha@gmail.com&gt;</Authors>
+        <Description>K6 bus using MassTransit</Description>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="GitVersion.MsBuild" Version="6.1.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="MassTransit" Version="8.3.5-develop.2185" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\K6.Application\K6.Application.csproj"/>
+    </ItemGroup>
+
+</Project>

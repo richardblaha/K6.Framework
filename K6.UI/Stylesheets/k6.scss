@@ -1,0 +1,13 @@
+@import "@fontsource/fira-sans/index.css";
+@import "@fontsource/fira-code/index.css";
+
+$theme: "k6";
+
+$font-family-sans-serif: "Fira Sans", sans-serif;
+$font-family-monospace: "Fira Code", monospace;
+
+@import "bootswatch/dist/flatly/_variables.scss";
+@import "bootstrap/scss/bootstrap.scss";
+@import "bootswatch/dist/flatly/_bootswatch.scss";
+
+@import "_icons.scss";

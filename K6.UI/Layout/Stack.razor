@@ -1,0 +1,41 @@
+﻿@using K6.UI.Enums
+@using K6.UI.Extensions
+@using K6.UI.Helpers
+@inherits ContainerBase
+
+<div class="@GetClass()">
+    @ChildContent
+</div>
+
+@code {
+
+    [Parameter] public StackType Type { get; set; } = StackType.Vertical;
+    [Parameter] public byte? Gap { get; set; }
+
+    private string GetClass()
+    {
+        return ClassHelper.Combine(
+            Type.ToClass(),
+            GetGapClass(),
+            Align?.ToClass(),
+            Justify?.ToClass(),
+            GetMarginClass(),
+            GetPaddingClass(),
+            GetBackgroundClass(),
+            GetBorderClass(),
+            GetFillClass(),
+            GetGrowClass(),
+            GetShrinkClass(),
+            Class
+        );
+    }
+
+    private string? GetGapClass()
+    {
+        if (Gap is null)
+            return null;
+
+        return $"gap-{Gap}";
+    }
+
+}

@@ -1,0 +1,30 @@
+﻿@using K6.UI.Enums
+@using K6.UI.Extensions
+@using K6.UI.Helpers
+@using Microsoft.AspNetCore.Components.Forms
+
+@inherits Input<string>
+
+<div>
+    <label for="@Id" class="form-label">@Label</label>
+    <InputText @bind-Value="Value" AdditionalAttributes="@InputAttributes"/>
+    <ValidationMessage For="@For"/>
+</div>
+
+@code {
+
+    [Parameter] public TextInputType? Type { get; set; }
+
+    private IReadOnlyDictionary<string, object> InputAttributes => new Dictionary<string, object>
+    {
+            ["type"] = Type?.ToHtml() ?? TextInputType.Text.ToHtml() ?? string.Empty,
+            ["class"] = GetClass()
+    };
+
+    private string GetClass() => ClassHelper.Combine(
+    ReadOnly
+    ? "form-control-plaintext"
+    : "form-control",
+    Size?.ToInputClass());
+
+}

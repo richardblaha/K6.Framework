@@ -1,0 +1,90 @@
+﻿@using K6.UI.Enums
+@using K6.UI.Extensions
+@using K6.UI.Helpers
+
+@switch (Type)
+{
+    case TextType.Default:
+        <span class="@GetClass()">
+            @ChildContent
+        </span>
+        break;
+    case TextType.Headline1 or TextType.Display1:
+        <h1 class="@GetClass()">
+            @ChildContent
+        </h1>
+        break;
+    case TextType.Headline2 or TextType.Display2:
+        <h2 class="@GetClass()">
+            @ChildContent
+        </h2>
+        break;
+    case TextType.Headline3 or TextType.Display3:
+        <h3 class="@GetClass()">
+            @ChildContent
+        </h3>
+        break;
+    case TextType.Headline4 or TextType.Display4:
+        <h4 class="@GetClass()">
+            @ChildContent
+        </h4>
+        break;
+    case TextType.Headline5 or TextType.Display5:
+        <h5 class="@GetClass()">
+            @ChildContent
+        </h5>
+        break;
+    case TextType.Headline6 or TextType.Display6:
+        <h6 class="@GetClass()">
+            @ChildContent
+        </h6>
+        break;
+    case TextType.Paragraph or TextType.Lead:
+        <p class="@GetClass()">
+            @ChildContent
+        </p>
+        break;
+    case TextType.Blockquote:
+        <blockquote class="@GetClass()">
+            @ChildContent
+        </blockquote>
+        break;
+    case TextType.Monospace:
+        <pre class="@GetClass()">@ChildContent</pre>
+        break;
+}
+
+@code {
+
+    [Parameter] public IList<(Screen?, Align)>? Align { get; set; }
+    [Parameter] public Color? Color { get; set; }
+    [Parameter] public bool? Break { get; set; }
+    [Parameter] public LineHeight? Height { get; set; }
+    [Parameter] public FontSize? Size { get; set; }
+    [Parameter] public FontStyle? Style { get; set; }
+    [Parameter] public TextTransform? Transform { get; set; }
+    [Parameter] public TextType Type { get; set; } = TextType.Default;
+    [Parameter] public FontWeight? Weight { get; set; }
+    [Parameter] public bool? Wrap { get; set; }
+    [Parameter] public string? Class { get; set; }
+
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private string GetClass()
+    {
+        return ClassHelper.Combine(
+            Align?.ToClass(),
+            Color?.ToTextClass(),
+            Break is true ? "text-break" : null,
+            Height?.ToClass(),
+            Size?.ToClass(),
+            Style?.ToClass(),
+            Transform?.ToClass(),
+            Type.ToClass(),
+            Weight?.ToClass(),
+            Wrap is true ? "text-wrap" : null,
+            Class
+        );
+    }
+
+}

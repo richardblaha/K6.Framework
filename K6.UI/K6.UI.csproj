@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Authors>Richard Bláha &lt;richardblaha@gmail.com&gt;</Authors>
+        <Description>UI for Blazor using Bootstrap</Description>
+        <IsPackable>true</IsPackable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <Target Name="build-icons">
+        <Exec Command="dotnet tool restore"/>
+        <Exec Command="dotnet pwsh build-icons.ps1"/>
+    </Target>
+
+    <Target Name="build-themes">
+        <Exec Command="npm install"/>
+        <Exec Command="npm run build-themes"/>
+    </Target>
+
+    <ItemGroup>
+        <SupportedPlatform Include="browser"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Blazored.FluentValidation" Version="2.2.0"/>
+        <PackageReference Include="FluentValidation" Version="12.0.0-preview1"/>
+        <PackageReference Include="GitVersion.MsBuild" Version="6.1.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.1"/>
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="9.0.1"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\" />
+    </ItemGroup>
+
+</Project>
