@@ -6,6 +6,17 @@ $theme: "k6";
 $font-family-sans-serif: "Fira Sans", sans-serif;
 $font-family-monospace: "Fira Code", monospace;
 
+$light: #dddddd;
+$dark: #222222;
+
+$primary: #ffbf00;
+$secondary: #817f82;
+
+$success: #5E8C61;
+$info: #4D7EA8;
+$warning: #DD614A;
+$danger: #C42021;
+
 @import "bootswatch/dist/flatly/_variables.scss";
 @import "bootstrap/scss/bootstrap.scss";
 @import "bootswatch/dist/flatly/_bootswatch.scss";
