@@ -47,10 +47,10 @@ jobs:
       - name: Pack
         run: dotnet pack -c Release -o ./publish
 
-#      - name: Push
-#        run: dotnet nuget push ./publish/*.nupkg --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --api-key ${{ secrets.BUILD_AND_RELEASE_TOKEN }}
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.BUILD_AND_RELEASE_TOKEN }}
+      - name: Push
+        run: dotnet nuget push ./publish/*.nupkg --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --api-key ${{ secrets.BUILD_AND_RELEASE_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.BUILD_AND_RELEASE_TOKEN }}
 
       - name: Get Version
         run: echo "GITVERSION_SEMVER=$(dotnet gitversion -showvariable SemVer)" >> $GITHUB_ENV
