@@ -43,9 +43,12 @@ jobs:
 
       - name: Test
         run: dotnet test --no-build --verbosity normal
+       
+      - name: Debug GitVersion
+        run: dotnet msbuild /t:GitVersion /p:Configuration=Release
 
       - name: Pack
-        run: dotnet pack -c Release -o ./publish
+        run: dotnet pack -c Release -o ./publish /p:ContinuousIntegrationBuild=true
 
       - name: Push
         run: dotnet nuget push ./publish/*.nupkg --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --api-key ${{ secrets.PUSH_PACKAGES_TOKEN }}
